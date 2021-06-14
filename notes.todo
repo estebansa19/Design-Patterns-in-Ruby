@@ -1,0 +1,46 @@
+Design Patterns in Ruby:
+
+  Por qué Ruby?:
+    - Es un lenguaje de tipado dinámico.
+    - Tiene closures ya integrados en el lenguaje.
+    - Las clases realmente son objetos y se comportan como tal.
+    - Tiene una buena manera de reutilizar código.
+
+  - Cada problema tiene su propia complejidad, los patrones de diseño nos permiten resolver 
+    problemas que ya han sido tratados para enfocarnos a esos específicos del problema.
+
+  Meta-design patters; patterns for patterns:
+    - Separate Out the Things That Change from Those That Stay the Same: separar las cosas que son
+      muy propensas a cambiar en el futuro de las que no lo son. De esta manera, en caso de que 
+      haya que hacer una modificación o un bugfix, el cambio va a estar mucho más aislado.
+      
+    - Program to an Interface, Not an Implementation: escribir código que está poco acoplado con el
+      objeto en sí mismo, se puede implemetnar polimorfismo/duck typing, nos permite que nuestro 
+      código sea más resistente al cambio.
+
+    - Prefer Composition over Inheritance: la herencia tiende a generar una dependencia de la clase
+      padre y la clase hija, por ende, si se realiza un cambio en la clase padre es problable que 
+      tengamos que modificar la clase hija también, estamos creando sistemas que están acoplados
+      entre sí. Con la Composition vamos armando a las clases con otras clases que funcionan como
+      componentes, esto hace que el código esté menos acoplado y que también sea más reutilizable. 
+      Podemos manejar estos componentes en tiempo de ejecución como sea necesario, i.e: cambiar el
+      engine de un vehículo por otro.
+  
+    - Delegate, Delegate, Delegate: esto nos permite pasarle la responbilidad sobre un método a 
+      otro objeto, i.e: si estamos dentro de una clase Car, podemos tener un método que se llame 
+      start/stop_engine que lo único que haga es llamar start/stop en su engine. Estamos 
+      redirigiendo la responsabilidad al engine. Esto en conjunto con la composition es algo 
+      bastante robusto y que sirve como alternativa a la herencia. 
+
+      Nos permitirá tener código mucho más flexible a cambio de tener que llamar a un método extra
+      que puede tener cierto coste de performance y también, que tenemos que escribir estos métodos
+      de delegate start/stop_engine; aunque, Ruby nos ofrece una solución para esta segunda.
+    
+    - You Ain’t Gonna Need It (YAGNI): este principio nos habla de no anticiparnos al futuro porque
+      puede que no sepamos qué es lo que se viene. Entonces, debemos hacer las cosas con las 
+      necesidades que tenemos en el momento y cuando tengamos que hacer, por ejemplo, un sistema
+      más flexible, en su día lo realizaremos, cuando ya tengamos la necesidad.
+
+
+
+
