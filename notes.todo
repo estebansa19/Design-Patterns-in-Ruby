@@ -1,46 +1,102 @@
 Design Patterns in Ruby:
 
-  Por qué Ruby?:
-    - Es un lenguaje de tipado dinámico.
-    - Tiene closures ya integrados en el lenguaje.
-    - Las clases realmente son objetos y se comportan como tal.
-    - Tiene una buena manera de reutilizar código.
+  Chapter 1:
+    Por qué Ruby?:
+      - Es un lenguaje de tipado dinámico.
+      - Tiene closures ya integrados en el lenguaje.
+      - Las clases realmente son objetos y se comportan como tal.
+      - Tiene una buena manera de reutilizar código.
 
-  - Cada problema tiene su propia complejidad, los patrones de diseño nos permiten resolver 
-    problemas que ya han sido tratados para enfocarnos a esos específicos del problema.
+    - Cada problema tiene su propia complejidad, los patrones de diseño nos permiten resolver 
+      problemas que ya han sido tratados para enfocarnos a esos específicos del problema.
 
-  Meta-design patters; patterns for patterns:
-    - Separate Out the Things That Change from Those That Stay the Same: separar las cosas que son
-      muy propensas a cambiar en el futuro de las que no lo son. De esta manera, en caso de que 
-      haya que hacer una modificación o un bugfix, el cambio va a estar mucho más aislado.
-      
-    - Program to an Interface, Not an Implementation: escribir código que está poco acoplado con el
-      objeto en sí mismo, se puede implemetnar polimorfismo/duck typing, nos permite que nuestro 
-      código sea más resistente al cambio.
+    Meta-design patters; patterns for patterns:
+      - Separate Out the Things That Change from Those That Stay the Same: separar las cosas que son
+        muy propensas a cambiar en el futuro de las que no lo son. De esta manera, en caso de que 
+        haya que hacer una modificación o un bugfix, el cambio va a estar mucho más aislado.
+        
+      - Program to an Interface, Not an Implementation: escribir código que está poco acoplado con el
+        objeto en sí mismo, se puede implementar polimorfismo/duck typing, nos permite que nuestro 
+        código sea más resistente al cambio.
 
-    - Prefer Composition over Inheritance: la herencia tiende a generar una dependencia de la clase
-      padre y la clase hija, por ende, si se realiza un cambio en la clase padre es problable que 
-      tengamos que modificar la clase hija también, estamos creando sistemas que están acoplados
-      entre sí. Con la Composition vamos armando a las clases con otras clases que funcionan como
-      componentes, esto hace que el código esté menos acoplado y que también sea más reutilizable. 
-      Podemos manejar estos componentes en tiempo de ejecución como sea necesario, i.e: cambiar el
-      engine de un vehículo por otro.
-  
-    - Delegate, Delegate, Delegate: esto nos permite pasarle la responbilidad sobre un método a 
-      otro objeto, i.e: si estamos dentro de una clase Car, podemos tener un método que se llame 
-      start/stop_engine que lo único que haga es llamar start/stop en su engine. Estamos 
-      redirigiendo la responsabilidad al engine. Esto en conjunto con la composition es algo 
-      bastante robusto y que sirve como alternativa a la herencia. 
-
-      Nos permitirá tener código mucho más flexible a cambio de tener que llamar a un método extra
-      que puede tener cierto coste de performance y también, que tenemos que escribir estos métodos
-      de delegate start/stop_engine; aunque, Ruby nos ofrece una solución para esta segunda.
+      - Prefer Composition over Inheritance: la herencia tiende a generar una dependencia de la clase
+        padre y la clase hija, por ende, si se realiza un cambio en la clase padre es problable que 
+        tengamos que modificar la clase hija también, estamos creando sistemas que están acoplados
+        entre sí. Con la Composition vamos armando a las clases con otras clases que funcionan como
+        componentes, esto hace que el código esté menos acoplado y que también sea más reutilizable. 
+        Podemos manejar estos componentes en tiempo de ejecución como sea necesario, i.e: cambiar el
+        engine de un vehículo por otro.
     
-    - You Ain’t Gonna Need It (YAGNI): este principio nos habla de no anticiparnos al futuro porque
-      puede que no sepamos qué es lo que se viene. Entonces, debemos hacer las cosas con las 
-      necesidades que tenemos en el momento y cuando tengamos que hacer, por ejemplo, un sistema
-      más flexible, en su día lo realizaremos, cuando ya tengamos la necesidad.
+      - Delegate, Delegate, Delegate: esto nos permite pasarle la responbilidad sobre un método a 
+        otro objeto, i.e: si estamos dentro de una clase Car, podemos tener un método que se llame 
+        start/stop_engine que lo único que haga es llamar start/stop en su engine. Estamos 
+        redirigiendo la responsabilidad al engine. Esto en conjunto con la composition es algo 
+        bastante robusto y que sirve como alternativa a la herencia. 
 
+        Nos permitirá tener código mucho más flexible a cambio de tener que llamar a un método extra
+        que puede tener cierto coste de performance y también, que tenemos que escribir estos métodos
+        de delegate start/stop_engine; aunque, Ruby nos ofrece una solución para esta segunda.
+      
+      - You Ain’t Gonna Need It (YAGNI): este principio nos habla de no anticiparnos al futuro porque
+        puede que no sepamos qué es lo que se viene. Entonces, debemos hacer las cosas con las 
+        necesidades que tenemos en el momento y cuando tengamos que hacer, por ejemplo, un sistema
+        más flexible, en su día lo realizaremos, cuando ya tengamos la necesidad.
 
+  Chapter 2: 
+    # Ruby introduction
+  
+  Chapter 3 - Varying the Algorithm with the Template Method:
+    Este patrón se usa cuando conocemos que un algoritmo tiene o puede tener variaciones de su 
+    comportamiento de acuerdo a x argumentos.
+    
+    Lo que se hace es crear una base abstract class que tengan los pasos básicos, pero que le deje
+    la especificación de esos detalles a cada una de sus subclases.
 
+    Estas subclases creadas a partir de la clase abstracta o base, se ven fragmentadas, justamente
+    como se deberían ver porque en este caso estamos fragmentando las responsabilidades en clases 
+    aparte.
 
+    Duck typing :eyes:.
+
+    Debido al que Ruby es un lenguaje dinámico, aquí entra mucho más a colación tener test 
+    unitarios, aquí no tenemos un compilador.
+
+    initialize method es un hook: a.
+
+  Chapter 4 - Replacing the algorithm with the Strategy:
+    La solución que se le dio al problema de necesitar un algoritmo que pueda variar de acuerdo a 
+    a ciertas condiciones fue el Template Method, esto tiene algunos drawbacks que están bastante
+    relacionados con la POO y su naturaleza.
+
+    Delegate, delegate, and delegate again, podríamos en lugar, crear una clase por cada una de las
+    variaciones y delegarle la responsabilidad a esta clase.
+
+    La idea de este patrón de diseño es tener una familia de objetos que definen lógica o 
+    **estrategia**. Cada una de estas estrategias deberían ser objetos que puedan ser 
+    intercambiables, por ender, estos objetos deberían compartir la misma interfaz. 
+
+    En este patrón tenemos que tener claro qué Strategy usar porque cada uno podría tener outputs
+    totalmente distintos.
+
+    En la aplicación tenemos un ejemplo clarísimo de este Strategy pattern con los service objects 
+    que manejamos.
+
+    Al usar en este caso composition y delegation, nos da más flexibilidad para cambiar esas 
+    Strategies de un objeto incluso en runtime.
+
+    Aquí podemos tener 2 approach a la hora de pasarle la información al Strategy
+
+      1. Pasarle por argumentos todo lo que necesite, esto puede que no sea la mejor opción, puede 
+        complejizar más la interacción con el objeto.
+
+      2. Pasarle una referencia del context object y que el Strategy le consulte a este todo lo que
+        necesite, de esta manera vamos a hacer que la clase del Strategy y del context object estén
+        más acopladas entre sí.
+
+    Con este patrón se nos permite no necesariamente tener clases que se encarguen de cada 
+    variación en el código. Podemos tener, por ejemplo, procs que tengan toda la lógica y mandarlos
+    al Strategy.
+
+    Otro ejemplo que nos provee el propio lenguaje de este Strategy pattern es el sorth method.
+    Podemos decirle que ordene los valores de un array de acuerdo al criterio por defecto o pasarle
+    una **estrategia** para que ordene los elementos.
