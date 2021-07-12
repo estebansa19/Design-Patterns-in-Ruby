@@ -97,6 +97,38 @@ Design Patterns in Ruby:
     variación en el código. Podemos tener, por ejemplo, procs que tengan toda la lógica y mandarlos
     al Strategy.
 
-    Otro ejemplo que nos provee el propio lenguaje de este Strategy pattern es el sorth method.
+    Otro ejemplo que nos provee el propio lenguaje de este Strategy pattern es el sort method.
     Podemos decirle que ordene los valores de un array de acuerdo al criterio por defecto o pasarle
     una **estrategia** para que ordene los elementos.
+
+  Chapter 5 - Keeping Up with the Times with the Observer:
+    Cómo, por ejemplo, podemos construir un sistema que tenga conocimiento de los cambios 
+    realizados y de acuerdo a esto haga x cosas? Por ejemplo un spreadsheet, en el que cuando 
+    hacemos un cambio, recalcula formulas, gráficas, etc.
+
+    Es una forma de mantener objetos que estén interesados en saber cierta información de otro
+    objeto en específico, actualizados.
+
+    En este contexto, se le llama subject al objeto quien tiene las noticias y observers a los 
+    objetos que están pendientes de estas noticias o cambios.
+
+    Podemos abstraer esto de varias maneras: 1. con inheritance, esto tiene un tradeoff y es que 
+    ocupamos el espacio de superclass de la clase, esto puede que no sea tan bueno dependiendo del 
+    contextp. 2. con modulos, de esta manera lo podremos compartir entre todas las clases que 
+    queramos sin inconvenientes.
+
+    Ruby ya incluye un modulo, Observable, que tiene todo lo necesario para hacer nuestros objetos
+    observable.
+
+    El método en el que Ruby lo implementa, usa un flag que es changed, el cual debemos llamar para
+    hacerle entender que hubo algún cambio, luego ejecutamos un método que se llama 
+    notify_observers.
+
+    Uno de los problemas que tiene este patrón es cuando suscribimos a un observer con un subject
+    que cambia demasiado. Podemos evitar esto asegurándonos de que se le notifique a los observers
+    de los cambios realmente importantes.
+
+    Un ejemplo de dónde encontramos este patrón sería ActiveRecord. Ya que posee unos métodos que 
+    observan cuando un registro de la DB es escrito, actualizado o eliminado.
+    
+
