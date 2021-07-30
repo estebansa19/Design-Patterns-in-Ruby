@@ -114,7 +114,7 @@ Design Patterns in Ruby:
 
     Podemos abstraer esto de varias maneras: 1. con inheritance, esto tiene un tradeoff y es que 
     ocupamos el espacio de superclass de la clase, esto puede que no sea tan bueno dependiendo del 
-    contextp. 2. con modulos, de esta manera lo podremos compartir entre todas las clases que 
+    contexto. 2. con modulos, de esta manera lo podremos compartir entre todas las clases que 
     queramos sin inconvenientes.
 
     Ruby ya incluye un modulo, Observable, que tiene todo lo necesario para hacer nuestros objetos
@@ -131,4 +131,44 @@ Design Patterns in Ruby:
     Un ejemplo de dónde encontramos este patrón sería ActiveRecord. Ya que posee unos métodos que 
     observan cuando un registro de la DB es escrito, actualizado o eliminado.
     
+  Chapter 6 - Assembling the Whole from the Parts with the Composite:
+    Cómo podemos formar objetos a partir de objetos o sub-objetos, que estos a su vez pueden estar
+    formados de otros objetos también. Cómo podemos formar un todo a partir de pequeñas partes.
+
+    Las composite solamente deben preocuparse por ejecutar las tareas de cada uno de sus partes, de 
+    nada más, por ende estas partes pueden estar compuestas de otras partes y así sucesivamente.
+
+    "La suma de los componentes actúa como una de las partes"
+
+    Sabremos que necesitamos usar el patrón composite cuando necesitamos hacer una estructura de 
+    jerarquía como un árbol y queremos tratar tanto al árbol como el total o a una de sus partes.
+
+    Cómo se compone:
+      - Todos los componentes deben partir de una clase, de una interfaz que tengan en común, 
+        en este  caso se le denomina "Component". 
+      
+      - También están los "leaf" que son los bloques indivisibles del proceso de la tarea. 
+        e.g: añadir huevos, harina, etc.
+      
+      - Y el "Composite", que es una clase de alto nivel que está compuesta por otras components, 
+        este es un component también. e.g: tareas más complejas, hacer pastel; departments, areas, 
+        etc.
+
+    La clase Composite debe tener la misma interfaz que sus Components pero puede definir su 
+    comportamiento como la suma del comportamiento de sus Components.
+
+    Podemos usar métodos que vienen en la interfaz del lenguaje para hacer más intuitivo el manejo
+    de los Composite.
+
+    La diferencia que hay entre un Composite y un Leaf es que el composite tiene que tener una 
+    interfaz para manejar los Components, los Components no tienen que tener esta interfaz. Podemos
+    mantener ambos objetos con interfaces distintas o hacer que tengan interfaces iguales pero los
+    Component objets van a tener interfaces que no van a usar 
+    (add_component, remove_component, etc).
+
+    Ejemplos del día a día:
+      - GUIs, siendo sus labels, buttons, etc, Components y siendo la combinación de estos 
+        Components en uno más grande, el Composite.
+    
+    Continuamos con el iterator pattern
 
