@@ -172,3 +172,42 @@ Design Patterns in Ruby:
     
     Continuamos con el iterator pattern
 
+  Chapter 7 - Reaching into a Collection with the Iterator:
+    Un iterador le provee al mundo exterior una manera de movernos de acuerdo a punteros en los 
+    objetos almacenados de un aggregate object.
+
+    Tipos de iteradores:
+      - Externos: son objetos externos al aggregate object que contiene el conjunto de datos. 
+        e.g: si tenemos una clase específica para iterar objetos, por ejemplo, ArrayIterator.
+
+      - Internos: es cuando toda la lógica de iteración sobre el aggregate object ocurre dentro del
+        objeto iterador, en este caso podríamos pasarle un block al iterator para que sepa la 
+        lógica que queremos utilizar.
+
+        Esto es realmente muy parecido al .each que ya tiene el lenguaje, así que no tiene muchos
+        beneficios que digamos.
+
+    External vs Internal:
+      - la ejecución del external ocurre por parte del cliente.
+      - con el external tenemos más control de las iteraciones y solamente hacemos llamado de la 
+        siguiente iteración cuando estamos seguros. Con el internal de hace push de elementro tras 
+        elemento. Hay que tener en cuenta de que esto en la gran mayoría de los casos no es 
+        relevante.
+      - otra ventaja del external es que al ser un objeto externo, nos permite enviarlo por 
+        parámetros a otros objetos.
+      - los internal son mucho más claros y hacen el código más legible.
+
+    Enumerable parece un comercial de ventas, ya que este modulo hace gran parte de las cosas que 
+    necesitamos xD.
+
+    ¿Qué pasa cuando se elimina un elemento del array en tiempo de ejecución que ya recorrió?
+
+    ObjectSpace :eyes:.
+
+    la interfaz del lenguaje para los iteradores y cómo maneja los Internal iteratos 
+    (con procs y blocks), es una de esas cosas que están bien hechas del lenguaje.
+
+
+
+
+  
