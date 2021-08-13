@@ -207,6 +207,44 @@ Design Patterns in Ruby:
     la interfaz del lenguaje para los iteradores y cómo maneja los Internal iteratos 
     (con procs y blocks), es una de esas cosas que están bien hechas del lenguaje.
 
+  Chapter 8 - Getting Things Done with Commands:
+    Es un patrón en el que se da la instrucción de hacer algo en específico.
+
+    Es como si guárdaramos pequeños paquetes de código o tareas que están esperando a hacer 
+    ejecutados, estos pequeños paquetes son los Commands.
+
+    La idea de este patrón es separar algo que cambia (el código que está en el paquete o Command)
+    de algo que no lo hace, que sería el objeto que usaría este Command, estamos abstrayendo 
+    funcionalidades que podría tener este objeto.
+
+    Podemos usar los blocks y Procs del lenguaje como el command pero esto solamente es 
+    recomendable en los casos de que tengamos que realizar una acción con poca complejidad.
+
+    Cuando queremos implementar un subconjunto de comandos o varios comandos, podemos hacer uso del
+    composite pattern, teniendo un composite object que tenga la misma interfaz que los commands y
+    que se encargue de ejecutarlos.
+
+    Este patrón también nos permite hacer rollback de los cambios o lo que haga el comando, en el 
+    caso de un instalador, deshacer esos cambios de los cuales el command estaba encargado.
+
+    Podemos usar este patrón también para acumular tareas y ejecutarlas todas en un batch,
+    e.g: si queremos realizar un conjunto de tareas y cada tarea requiere que hagamos una conexión
+    a una DB, podemos acumularlas todas, abrir una conexión y luego cerrarla, no creamos n 
+    conexiones.
+
+    ¿Cómo se puede hacer overuse?
+
+    La clave a tener en cuenta es que tenemos que ver el command como un objeto donde guardamos 
+    lógica para usarla después, si no es lógica que queramos recordar después, no es acreedora de 
+    crear el command.
+
+    ¿Dónde podemos ver este patrón?
+
+    ActiveRecord Migrations :eyes: son undo-able. En este caso, ActiveRecord, que es un patrón de 
+    diseño, está usando otro patrón de diseño en su interior.
+
+  
+
 
 
 
