@@ -243,9 +243,37 @@ Design Patterns in Ruby:
     ActiveRecord Migrations :eyes: son undo-able. En este caso, ActiveRecord, que es un patrón de 
     diseño, está usando otro patrón de diseño en su interior.
 
+  Chapter 9 - Filling in the Gaps with the Adapter:
+    "The software world needs adapters more than the hardware folks do."
+
+    Los adapters son como los adaptadores que se usan en eléctronica, son adaptadores que nos 
+    permiten que una pieza de software se pueda comunicar con otra pieza de software, hace de 
+    puente entre las interfaces de estos 2 softwares.
+
+    Es un objecto que se encarga de hacer de intermediario entre la interfaz que necesitamos y la 
+    interfaz que tenemos.
+
+    Ruby nos permite modificar la interfaz de la clase en caliente pero esto es un approach 
+    bastante arriesgado, otra alternativa sería modificar el objeto en cuestión actualizando los 
+    métodos de su singleton class
+
+    ¿Cuándo usar cuál?
+    
+    Podemos tomar este approach de modificar la clase directamente si vamos a hacer pocos cambios y 
+    conocemos muy bien la clase en concreto.
   
+    Podemos tomar el approach de usar el adapter cuando la interfaz del objeto que vamos a 
+    modificar es complicada o no tenemos mucha claridad de cómo funciona.
 
+    ¿Cómo se puede hacer overuse?
 
+    Solamente estamos implementando en el adapter los métodos que se necesitan, esto puede ser una 
+    espada de doble filo ya que el objecto al cual se le envío el adapter puede preguntar por otros
+    métodos que este no implemente.
+
+    ¿Dónde podemos encontrar este patrón?
+
+    En los adapters que usa ActiveRecord a la hora de conectarse con distintos DBMS.
 
 
   
