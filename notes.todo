@@ -275,5 +275,51 @@ Design Patterns in Ruby:
 
     En los adapters que usa ActiveRecord a la hora de conectarse con distintos DBMS.
 
+  Chapter 10 - Getting in Front of Your Object with a Proxy:
+    Cuando controlamos el acceso de un objecto o proveemos forma independiente de contexto de 
+    acceder a ese objeto o tenemos que tener un delay a la hora de crear un objeto.
 
+    Lo que le vamos a dar al cliente es un objeto que funciona como él se lo espera, pero que 
+    realmente es un impostor. El Proxy va a tener una referencia al objeto que realmente va a estar
+    encargado de responder al llamado, el Subject, y este simplemente le va a delegar la 
+    responsabilidad.
+
+    Tipos de proxies:
+      - Protection Proxy: podemos usar este Proxy para añadir lógica de seguridad sobre el Subject,
+        de esta manera se conserva la segmentación de responsabilidades de los objetos.
+
+      - Remote Proxy: cuando tenemos que acceder a un objeto de manera remota, podemos usar este 
+        tipo de Proxy para proveer una interfaz con la que no nos tengamos que preocupar por la 
+        conexión remota. De esta manera, cualquier cambio que haya que realizarse con la conexión,
+        se ve reflejado solamente en el proxy.
+        
+      - Virtual Proxy: este Proxy intenta ralentizar la creación de un objecto, por ejemplo, si 
+        solamente queremos crear una cuenta bancaria cuando el cliente haga un deposito, 
+        crearemos un proxy que tenga estos métodos pero va a crear la cuenta bancaria sólo cuando
+        se llame al método del deposito.
+
+    Podemos evitar tener que escribir métodos que hagan lo mismo, tanto en el Proxy como en el 
+    Subject usando method_missing. De esta manera podemos también escribir Proxies que no tengan
+    ningún conocimiento sobre su Subject y sean reutilizables. Esta estrategia puede ser utilizada
+    también para los Virtual Proxies.
+
+    Parece que estamos jugando con muñecas rusas, porque es un objeto que internamente tiene otro
+    objeto.
   
+    ¿Cómo se puede hacer overuse?
+
+    Debemos comprender que todos los objetos del lenguaje ya vienen con un set de methods, estos
+    métodos nunca van a llegar al method_missing.
+
+    Usar method_missing es más lento que hacer el llamado directamente al method, aprox 10% más 
+    lento.
+
+    Esta estrategia también hace que nuestro código sea más difícil de entender y tricky en algunos
+    casos.
+
+    Yo recomiendo usar en este caso delegate, es un approach intermedio en el que no tenemos que 
+    definir estos métodos pero no es algo tan "ruby-magic" como method_missing.
+
+    ¿Dónde podemos encontrar este patrón?
+
+    DRB, es un package que nos permite crear aplicaciones Ruby distribuidas.
