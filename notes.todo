@@ -7,93 +7,93 @@ Design Patterns in Ruby:
       - Las clases realmente son objetos y se comportan como tal.
       - Tiene una buena manera de reutilizar código.
 
-    - Cada problema tiene su propia complejidad, los patrones de diseño nos permiten resolver 
+    - Cada problema tiene su propia complejidad, los patrones de diseño nos permiten resolver
       problemas que ya han sido tratados para enfocarnos a esos específicos del problema.
 
     Meta-design patters; patterns for patterns:
       - Separate Out the Things That Change from Those That Stay the Same: separar las cosas que son
-        muy propensas a cambiar en el futuro de las que no lo son. De esta manera, en caso de que 
+        muy propensas a cambiar en el futuro de las que no lo son. De esta manera, en caso de que
         haya que hacer una modificación o un bugfix, el cambio va a estar mucho más aislado.
-        
+
       - Program to an Interface, Not an Implementation: escribir código que está poco acoplado con el
-        objeto en sí mismo, se puede implementar polimorfismo/duck typing, nos permite que nuestro 
+        objeto en sí mismo, se puede implementar polimorfismo/duck typing, nos permite que nuestro
         código sea más resistente al cambio.
 
       - Prefer Composition over Inheritance: la herencia tiende a generar una dependencia de la clase
-        padre y la clase hija, por ende, si se realiza un cambio en la clase padre es problable que 
+        padre y la clase hija, por ende, si se realiza un cambio en la clase padre es problable que
         tengamos que modificar la clase hija también, estamos creando sistemas que están acoplados
         entre sí. Con la Composition vamos armando a las clases con otras clases que funcionan como
-        componentes, esto hace que el código esté menos acoplado y que también sea más reutilizable. 
+        componentes, esto hace que el código esté menos acoplado y que también sea más reutilizable.
         Podemos manejar estos componentes en tiempo de ejecución como sea necesario, i.e: cambiar el
         engine de un vehículo por otro.
-    
-      - Delegate, Delegate, Delegate: esto nos permite pasarle la responbilidad sobre un método a 
-        otro objeto, i.e: si estamos dentro de una clase Car, podemos tener un método que se llame 
-        start/stop_engine que lo único que haga es llamar start/stop en su engine. Estamos 
-        redirigiendo la responsabilidad al engine. Esto en conjunto con la composition es algo 
-        bastante robusto y que sirve como alternativa a la herencia. 
+
+      - Delegate, Delegate, Delegate: esto nos permite pasarle la responbilidad sobre un método a
+        otro objeto, i.e: si estamos dentro de una clase Car, podemos tener un método que se llame
+        start/stop_engine que lo único que haga es llamar start/stop en su engine. Estamos
+        redirigiendo la responsabilidad al engine. Esto en conjunto con la composition es algo
+        bastante robusto y que sirve como alternativa a la herencia.
 
         Nos permitirá tener código mucho más flexible a cambio de tener que llamar a un método extra
         que puede tener cierto coste de performance y también, que tenemos que escribir estos métodos
         de delegate start/stop_engine; aunque, Ruby nos ofrece una solución para esta segunda.
-      
+
       - You Ain’t Gonna Need It (YAGNI): este principio nos habla de no anticiparnos al futuro porque
-        puede que no sepamos qué es lo que se viene. Entonces, debemos hacer las cosas con las 
+        puede que no sepamos qué es lo que se viene. Entonces, debemos hacer las cosas con las
         necesidades que tenemos en el momento y cuando tengamos que hacer, por ejemplo, un sistema
         más flexible, en su día lo realizaremos, cuando ya tengamos la necesidad.
 
-  Chapter 2: 
+  Chapter 2:
     # Ruby introduction
-  
+
   Chapter 3 - Varying the Algorithm with the Template Method:
-    Este patrón se usa cuando conocemos que un algoritmo tiene o puede tener variaciones de su 
+    Este patrón se usa cuando conocemos que un algoritmo tiene o puede tener variaciones de su
     comportamiento de acuerdo a x argumentos.
-    
+
     Lo que se hace es crear una base abstract class que tengan los pasos básicos, pero que le deje
     la especificación de esos detalles a cada una de sus subclases.
 
     Estas subclases creadas a partir de la clase abstracta o base, se ven fragmentadas, justamente
-    como se deberían ver porque en este caso estamos fragmentando las responsabilidades en clases 
+    como se deberían ver porque en este caso estamos fragmentando las responsabilidades en clases
     aparte.
 
     Duck typing :eyes:.
 
-    Debido al que Ruby es un lenguaje dinámico, aquí entra mucho más a colación tener test 
+    Debido al que Ruby es un lenguaje dinámico, aquí entra mucho más a colación tener test
     unitarios, aquí no tenemos un compilador.
 
     initialize method es un hook: a.
 
   Chapter 4 - Replacing the algorithm with the Strategy:
-    La solución que se le dio al problema de necesitar un algoritmo que pueda variar de acuerdo a 
+    La solución que se le dio al problema de necesitar un algoritmo que pueda variar de acuerdo a
     a ciertas condiciones fue el Template Method, esto tiene algunos drawbacks que están bastante
     relacionados con la POO y su naturaleza.
 
     Delegate, delegate, and delegate again, podríamos en lugar, crear una clase por cada una de las
     variaciones y delegarle la responsabilidad a esta clase.
 
-    La idea de este patrón de diseño es tener una familia de objetos que definen lógica o 
-    **estrategia**. Cada una de estas estrategias deberían ser objetos que puedan ser 
-    intercambiables, por ender, estos objetos deberían compartir la misma interfaz. 
+    La idea de este patrón de diseño es tener una familia de objetos que definen lógica o
+    **estrategia**. Cada una de estas estrategias deberían ser objetos que puedan ser
+    intercambiables, por ender, estos objetos deberían compartir la misma interfaz.
 
     En este patrón tenemos que tener claro qué Strategy usar porque cada uno podría tener outputs
     totalmente distintos.
 
-    En la aplicación tenemos un ejemplo clarísimo de este Strategy pattern con los service objects 
+    En la aplicación tenemos un ejemplo clarísimo de este Strategy pattern con los service objects
     que manejamos.
 
-    Al usar en este caso composition y delegation, nos da más flexibilidad para cambiar esas 
+    Al usar en este caso composition y delegation, nos da más flexibilidad para cambiar esas
     Strategies de un objeto incluso en runtime.
 
     Aquí podemos tener 2 approach a la hora de pasarle la información al Strategy
 
-      1. Pasarle por argumentos todo lo que necesite, esto puede que no sea la mejor opción, puede 
+      1. Pasarle por argumentos todo lo que necesite, esto puede que no sea la mejor opción, puede
         complejizar más la interacción con el objeto.
 
       2. Pasarle una referencia del context object y que el Strategy le consulte a este todo lo que
         necesite, de esta manera vamos a hacer que la clase del Strategy y del context object estén
         más acopladas entre sí.
 
-    Con este patrón se nos permite no necesariamente tener clases que se encarguen de cada 
+    Con este patrón se nos permite no necesariamente tener clases que se encarguen de cada
     variación en el código. Podemos tener, por ejemplo, procs que tengan toda la lógica y mandarlos
     al Strategy.
 
@@ -102,86 +102,86 @@ Design Patterns in Ruby:
     una **estrategia** para que ordene los elementos.
 
   Chapter 5 - Keeping Up with the Times with the Observer:
-    Cómo, por ejemplo, podemos construir un sistema que tenga conocimiento de los cambios 
-    realizados y de acuerdo a esto haga x cosas? Por ejemplo un spreadsheet, en el que cuando 
+    Cómo, por ejemplo, podemos construir un sistema que tenga conocimiento de los cambios
+    realizados y de acuerdo a esto haga x cosas? Por ejemplo un spreadsheet, en el que cuando
     hacemos un cambio, recalcula formulas, gráficas, etc.
 
     Es una forma de mantener objetos que estén interesados en saber cierta información de otro
     objeto en específico, actualizados.
 
-    En este contexto, se le llama subject al objeto quien tiene las noticias y observers a los 
+    En este contexto, se le llama subject al objeto quien tiene las noticias y observers a los
     objetos que están pendientes de estas noticias o cambios.
 
-    Podemos abstraer esto de varias maneras: 1. con inheritance, esto tiene un tradeoff y es que 
-    ocupamos el espacio de superclass de la clase, esto puede que no sea tan bueno dependiendo del 
-    contexto. 2. con modulos, de esta manera lo podremos compartir entre todas las clases que 
+    Podemos abstraer esto de varias maneras: 1. con inheritance, esto tiene un tradeoff y es que
+    ocupamos el espacio de superclass de la clase, esto puede que no sea tan bueno dependiendo del
+    contexto. 2. con modulos, de esta manera lo podremos compartir entre todas las clases que
     queramos sin inconvenientes.
 
     Ruby ya incluye un modulo, Observable, que tiene todo lo necesario para hacer nuestros objetos
     observable.
 
     El método en el que Ruby lo implementa, usa un flag que es changed, el cual debemos llamar para
-    hacerle entender que hubo algún cambio, luego ejecutamos un método que se llama 
+    hacerle entender que hubo algún cambio, luego ejecutamos un método que se llama
     notify_observers.
 
     Uno de los problemas que tiene este patrón es cuando suscribimos a un observer con un subject
     que cambia demasiado. Podemos evitar esto asegurándonos de que se le notifique a los observers
     de los cambios realmente importantes.
 
-    Un ejemplo de dónde encontramos este patrón sería ActiveRecord. Ya que posee unos métodos que 
+    Un ejemplo de dónde encontramos este patrón sería ActiveRecord. Ya que posee unos métodos que
     observan cuando un registro de la DB es escrito, actualizado o eliminado.
-    
+
   Chapter 6 - Assembling the Whole from the Parts with the Composite:
     Cómo podemos formar objetos a partir de objetos o sub-objetos, que estos a su vez pueden estar
     formados de otros objetos también. Cómo podemos formar un todo a partir de pequeñas partes.
 
-    Las composite solamente deben preocuparse por ejecutar las tareas de cada uno de sus partes, de 
+    Las composite solamente deben preocuparse por ejecutar las tareas de cada uno de sus partes, de
     nada más, por ende estas partes pueden estar compuestas de otras partes y así sucesivamente.
 
     "La suma de los componentes actúa como una de las partes"
 
-    Sabremos que necesitamos usar el patrón composite cuando necesitamos hacer una estructura de 
+    Sabremos que necesitamos usar el patrón composite cuando necesitamos hacer una estructura de
     jerarquía como un árbol y queremos tratar tanto al árbol como el total o a una de sus partes.
 
     Cómo se compone:
-      - Todos los componentes deben partir de una clase, de una interfaz que tengan en común, 
-        en este  caso se le denomina "Component". 
-      
-      - También están los "leaf" que son los bloques indivisibles del proceso de la tarea. 
+      - Todos los componentes deben partir de una clase, de una interfaz que tengan en común,
+        en este  caso se le denomina "Component".
+
+      - También están los "leaf" que son los bloques indivisibles del proceso de la tarea.
         e.g: añadir huevos, harina, etc.
-      
-      - Y el "Composite", que es una clase de alto nivel que está compuesta por otras components, 
-        este es un component también. e.g: tareas más complejas, hacer pastel; departments, areas, 
+
+      - Y el "Composite", que es una clase de alto nivel que está compuesta por otras components,
+        este es un component también. e.g: tareas más complejas, hacer pastel; departments, areas,
         etc.
 
-    La clase Composite debe tener la misma interfaz que sus Components pero puede definir su 
+    La clase Composite debe tener la misma interfaz que sus Components pero puede definir su
     comportamiento como la suma del comportamiento de sus Components.
 
     Podemos usar métodos que vienen en la interfaz del lenguaje para hacer más intuitivo el manejo
     de los Composite.
 
-    La diferencia que hay entre un Composite y un Leaf es que el composite tiene que tener una 
+    La diferencia que hay entre un Composite y un Leaf es que el composite tiene que tener una
     interfaz para manejar los Components, los Components no tienen que tener esta interfaz. Podemos
     mantener ambos objetos con interfaces distintas o hacer que tengan interfaces iguales pero los
-    Component objets van a tener interfaces que no van a usar 
+    Component objets van a tener interfaces que no van a usar
     (add_component, remove_component, etc).
 
     Ejemplos del día a día:
-      - GUIs, siendo sus labels, buttons, etc, Components y siendo la combinación de estos 
+      - GUIs, siendo sus labels, buttons, etc, Components y siendo la combinación de estos
         Components en uno más grande, el Composite.
-    
+
     Continuamos con el iterator pattern
 
   Chapter 7 - Reaching into a Collection with the Iterator:
-    Un iterador le provee al mundo exterior una manera de movernos de acuerdo a punteros en los 
+    Un iterador le provee al mundo exterior una manera de movernos de acuerdo a punteros en los
     objetos almacenados de un aggregate object.
 
     Tipos de iteradores:
-      - Externos: son objetos externos al aggregate object que contiene el conjunto de datos. 
+      - Externos: son objetos externos al aggregate object que contiene el conjunto de datos.
         e.g: si tenemos una clase específica para iterar objetos, por ejemplo, ArrayIterator.
 
       - Internos: es cuando toda la lógica de iteración sobre el aggregate object ocurre dentro del
-        objeto iterador, en este caso podríamos pasarle un block al iterator para que sepa la 
+        objeto iterador, en este caso podríamos pasarle un block al iterator para que sepa la
         lógica que queremos utilizar.
 
         Esto es realmente muy parecido al .each que ya tiene el lenguaje, así que no tiene muchos
@@ -189,85 +189,85 @@ Design Patterns in Ruby:
 
     External vs Internal:
       - la ejecución del external ocurre por parte del cliente.
-      - con el external tenemos más control de las iteraciones y solamente hacemos llamado de la 
-        siguiente iteración cuando estamos seguros. Con el internal de hace push de elementro tras 
-        elemento. Hay que tener en cuenta de que esto en la gran mayoría de los casos no es 
+      - con el external tenemos más control de las iteraciones y solamente hacemos llamado de la
+        siguiente iteración cuando estamos seguros. Con el internal de hace push de elementro tras
+        elemento. Hay que tener en cuenta de que esto en la gran mayoría de los casos no es
         relevante.
-      - otra ventaja del external es que al ser un objeto externo, nos permite enviarlo por 
+      - otra ventaja del external es que al ser un objeto externo, nos permite enviarlo por
         parámetros a otros objetos.
       - los internal son mucho más claros y hacen el código más legible.
 
-    Enumerable parece un comercial de ventas, ya que este modulo hace gran parte de las cosas que 
+    Enumerable parece un comercial de ventas, ya que este modulo hace gran parte de las cosas que
     necesitamos xD.
 
     ¿Qué pasa cuando se elimina un elemento del array en tiempo de ejecución que ya recorrió?
 
     ObjectSpace :eyes:.
 
-    la interfaz del lenguaje para los iteradores y cómo maneja los Internal iteratos 
+    la interfaz del lenguaje para los iteradores y cómo maneja los Internal iteratos
     (con procs y blocks), es una de esas cosas que están bien hechas del lenguaje.
 
   Chapter 8 - Getting Things Done with Commands:
     Es un patrón en el que se da la instrucción de hacer algo en específico.
 
-    Es como si guárdaramos pequeños paquetes de código o tareas que están esperando a hacer 
+    Es como si guárdaramos pequeños paquetes de código o tareas que están esperando a hacer
     ejecutados, estos pequeños paquetes son los Commands.
 
     La idea de este patrón es separar algo que cambia (el código que está en el paquete o Command)
-    de algo que no lo hace, que sería el objeto que usaría este Command, estamos abstrayendo 
+    de algo que no lo hace, que sería el objeto que usaría este Command, estamos abstrayendo
     funcionalidades que podría tener este objeto.
 
-    Podemos usar los blocks y Procs del lenguaje como el command pero esto solamente es 
+    Podemos usar los blocks y Procs del lenguaje como el command pero esto solamente es
     recomendable en los casos de que tengamos que realizar una acción con poca complejidad.
 
     Cuando queremos implementar un subconjunto de comandos o varios comandos, podemos hacer uso del
     composite pattern, teniendo un composite object que tenga la misma interfaz que los commands y
     que se encargue de ejecutarlos.
 
-    Este patrón también nos permite hacer rollback de los cambios o lo que haga el comando, en el 
+    Este patrón también nos permite hacer rollback de los cambios o lo que haga el comando, en el
     caso de un instalador, deshacer esos cambios de los cuales el command estaba encargado.
 
     Podemos usar este patrón también para acumular tareas y ejecutarlas todas en un batch,
     e.g: si queremos realizar un conjunto de tareas y cada tarea requiere que hagamos una conexión
-    a una DB, podemos acumularlas todas, abrir una conexión y luego cerrarla, no creamos n 
+    a una DB, podemos acumularlas todas, abrir una conexión y luego cerrarla, no creamos n
     conexiones.
 
     ¿Cómo se puede hacer overuse?
 
-    La clave a tener en cuenta es que tenemos que ver el command como un objeto donde guardamos 
-    lógica para usarla después, si no es lógica que queramos recordar después, no es acreedora de 
+    La clave a tener en cuenta es que tenemos que ver el command como un objeto donde guardamos
+    lógica para usarla después, si no es lógica que queramos recordar después, no es acreedora de
     crear el command.
 
     ¿Dónde podemos ver este patrón?
 
-    ActiveRecord Migrations :eyes: son undo-able. En este caso, ActiveRecord, que es un patrón de 
+    ActiveRecord Migrations :eyes: son undo-able. En este caso, ActiveRecord, que es un patrón de
     diseño, está usando otro patrón de diseño en su interior.
 
   Chapter 9 - Filling in the Gaps with the Adapter:
     "The software world needs adapters more than the hardware folks do."
 
-    Los adapters son como los adaptadores que se usan en eléctronica, son adaptadores que nos 
-    permiten que una pieza de software se pueda comunicar con otra pieza de software, hace de 
+    Los adapters son como los adaptadores que se usan en eléctronica, son adaptadores que nos
+    permiten que una pieza de software se pueda comunicar con otra pieza de software, hace de
     puente entre las interfaces de estos 2 softwares.
 
-    Es un objecto que se encarga de hacer de intermediario entre la interfaz que necesitamos y la 
+    Es un objecto que se encarga de hacer de intermediario entre la interfaz que necesitamos y la
     interfaz que tenemos.
 
-    Ruby nos permite modificar la interfaz de la clase en caliente pero esto es un approach 
-    bastante arriesgado, otra alternativa sería modificar el objeto en cuestión actualizando los 
+    Ruby nos permite modificar la interfaz de la clase en caliente pero esto es un approach
+    bastante arriesgado, otra alternativa sería modificar el objeto en cuestión actualizando los
     métodos de su singleton class
 
     ¿Cuándo usar cuál?
-    
-    Podemos tomar este approach de modificar la clase directamente si vamos a hacer pocos cambios y 
+
+    Podemos tomar este approach de modificar la clase directamente si vamos a hacer pocos cambios y
     conocemos muy bien la clase en concreto.
-  
-    Podemos tomar el approach de usar el adapter cuando la interfaz del objeto que vamos a 
+
+    Podemos tomar el approach de usar el adapter cuando la interfaz del objeto que vamos a
     modificar es complicada o no tenemos mucha claridad de cómo funciona.
 
     ¿Cómo se puede hacer overuse?
 
-    Solamente estamos implementando en el adapter los métodos que se necesitan, esto puede ser una 
+    Solamente estamos implementando en el adapter los métodos que se necesitan, esto puede ser una
     espada de doble filo ya que el objecto al cual se le envío el adapter puede preguntar por otros
     métodos que este no implemente.
 
@@ -276,50 +276,95 @@ Design Patterns in Ruby:
     En los adapters que usa ActiveRecord a la hora de conectarse con distintos DBMS.
 
   Chapter 10 - Getting in Front of Your Object with a Proxy:
-    Cuando controlamos el acceso de un objecto o proveemos forma independiente de contexto de 
-    acceder a ese objeto o tenemos que tener un delay a la hora de crear un objeto.
+    Cuando controlamos el acceso de un objecto o proveemos forma independiente de contexto de
+    acceder a ese objeto o tenemos que tener un delay a la hora de crear un objeto, es ahí, donde
+    entra este patrón.
 
-    Lo que le vamos a dar al cliente es un objeto que funciona como él se lo espera, pero que 
+    Lo que le vamos a dar al cliente es un objeto que funciona como él se lo espera, pero que
     realmente es un impostor. El Proxy va a tener una referencia al objeto que realmente va a estar
-    encargado de responder al llamado, el Subject, y este simplemente le va a delegar la 
+    encargado de responder al llamado, el Subject, y este simplemente le va a delegar la
     responsabilidad.
 
     Tipos de proxies:
       - Protection Proxy: podemos usar este Proxy para añadir lógica de seguridad sobre el Subject,
         de esta manera se conserva la segmentación de responsabilidades de los objetos.
 
-      - Remote Proxy: cuando tenemos que acceder a un objeto de manera remota, podemos usar este 
-        tipo de Proxy para proveer una interfaz con la que no nos tengamos que preocupar por la 
+      - Remote Proxy: cuando tenemos que acceder a un objeto de manera remota, podemos usar este
+        tipo de Proxy para proveer una interfaz con la que no nos tengamos que preocupar por la
         conexión remota. De esta manera, cualquier cambio que haya que realizarse con la conexión,
         se ve reflejado solamente en el proxy.
-        
-      - Virtual Proxy: este Proxy intenta ralentizar la creación de un objecto, por ejemplo, si 
-        solamente queremos crear una cuenta bancaria cuando el cliente haga un deposito, 
+
+      - Virtual Proxy: este Proxy intenta ralentizar la creación de un objecto, por ejemplo, si
+        solamente queremos crear una cuenta bancaria cuando el cliente haga un deposito,
         crearemos un proxy que tenga estos métodos pero va a crear la cuenta bancaria sólo cuando
         se llame al método del deposito.
 
-    Podemos evitar tener que escribir métodos que hagan lo mismo, tanto en el Proxy como en el 
+    Podemos evitar tener que escribir métodos que hagan lo mismo, tanto en el Proxy como en el
     Subject usando method_missing. De esta manera podemos también escribir Proxies que no tengan
     ningún conocimiento sobre su Subject y sean reutilizables. Esta estrategia puede ser utilizada
     también para los Virtual Proxies.
 
     Parece que estamos jugando con muñecas rusas, porque es un objeto que internamente tiene otro
     objeto.
-  
+
     ¿Cómo se puede hacer overuse?
 
     Debemos comprender que todos los objetos del lenguaje ya vienen con un set de methods, estos
     métodos nunca van a llegar al method_missing.
 
-    Usar method_missing es más lento que hacer el llamado directamente al method, aprox 10% más 
+    Usar method_missing es más lento que hacer el llamado directamente al method, aprox 10% más
     lento.
 
     Esta estrategia también hace que nuestro código sea más difícil de entender y tricky en algunos
     casos.
 
-    Yo recomiendo usar en este caso delegate, es un approach intermedio en el que no tenemos que 
+    Yo recomiendo usar en este caso delegate, es un approach intermedio en el que no tenemos que
     definir estos métodos pero no es algo tan "ruby-magic" como method_missing.
 
     ¿Dónde podemos encontrar este patrón?
 
     DRB, es un package que nos permite crear aplicaciones Ruby distribuidas.
+
+  Chapter 11 - Improving Your Objects with a Decorator:
+    ¿Qué deberíamos hacer cuando nuestro objecto a veces tiene que hacer más cosas de las esperadas
+    y en otras ocasiones tiene que hacer menos cosas?
+
+    Es una forma de darle comportamiento de manera dinámica a los objetos, podemos incluso hacer
+    combinaciones entre el comportamiento de un decorador con otros.
+
+    En este patrón está conformado por:
+
+      - Concrete Component: es el objeto "real" o quien se encarga de implementar el funcionamiento
+        base del comportamiento que queremos.
+
+      - El decorator, que es el objeto que le va a dar más comportamiento al Concrete Component.
+
+    Podemos hacer más fácil el delegate de los métodos entre los decorators con el module
+    forwardable, es una alternativa más precisa que el métod missing porque decidimos qué métodos
+    van a ser delegados.
+
+    Podemos modificar el comportamiento de un objeto en caliente, conservando la anterior abriendo
+    el objeto y usando el alias method que tiene Ruby, pero esto no es muy buena práctica. Otra
+    forma, es hacer uso de los modulos y su extend, para darle ese comportamiento que tiene el
+    module a un object, esta es una mejor práctica que la anterior, pero ambas tienen una
+    desventaja y es que es complicado de remover la decoración.
+
+    ¿Cómo se puede hacer overuse?
+
+    Puede ser poco amigable para una persona que no conoce cómo tenemos planteados los decoradores
+    en nuestro proyecto, empezar a usarlos, añade más complejidad.
+
+    Este patrón puede tener un problema también y es en performance, ya que la delegación de todos
+    estos métodos tiene un costo.
+
+    Otro problema que tiene este patrón, es si cambiamos los métodos de manera dinámica, ya que si
+    llega a ocurrir un error, nos va a mostrar un method distinto al que tenemos en nuestro código.
+
+    ¿Dónde podemos encontrar este patrón?
+
+    alias_method_chain de ActiveSupport, que nos permite definir en un ese method-aliasing e
+    identifica el nombre de los métodos de manera dinámica.
+
+    Se puede hacer una analogía en este patrón como una carrera de atletismo, donde se van pasando
+    un objeto entre los jugadores de sus equipos, los decorators hacen algo parecido. Van delegando
+    la responsabilidad y además de esto, añaden su comportamiento especial.
