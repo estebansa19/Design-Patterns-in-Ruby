@@ -368,3 +368,56 @@ Design Patterns in Ruby:
     Se puede hacer una analogía en este patrón como una carrera de atletismo, donde se van pasando
     un objeto entre los jugadores de sus equipos, los decorators hacen algo parecido. Van delegando
     la responsabilidad y además de esto, añaden su comportamiento especial.
+
+  Chapter 12 - Making sure there's only one with the singleton:
+    Es un patrón muy odiado normalmente, MUY.
+
+    En sí es una clase que solamente puede tener una instancia y que provee acceso global a esa }
+    instancia. e.g: conexión con una DB, esto debería manejarse una vez por aplicación; una 
+    instancia que maneje los logs de una aplicación.
+
+    class_methods.
+
+    Para evitar que realicen otra instancia de nuestro Singleto, podemos hacer que el método new de 
+    la clase sea private: private_class_method :new.
+
+    El lenguaje ya tiene una manera de convertir a una clase en Singleton, así nos ahorramos tener 
+    que definir los métodos para acceder a la instancia y también tener que hacer el método new
+    private. Simplemente requerimos el método singleton y lo incluímos en la clase.
+
+    Hacerl con el module también nos trae una ventaja y es que la instantiation del Singleton es 
+    lazy, esto quiere decir que solamente se instancia el Singleton cuando se llama al método de la
+    clase. De la otra manera, creamos la instancia del Singleton sin siquiera necesitarlo, esto es 
+    conocido como eager instantiation.
+
+    Una alternativa a los singleton podría ser una variable global, pero esta tiene la desventaja 
+    de que se puede modificar en tiempo de ejecución por otro objeto que no sea el esperado. Otra
+    alternativa sería usar una constante, pero realmente ninguna de estas funciona como un 
+    Singleton, porque no evitan de ninguna manera la 2da instantiation de la clase; además, no 
+    podemos retrasar la instantiation del singleton, porque al evaluarse la variable global o 
+    constante, va a ser instanciado al instante.
+
+    Realmente por la flexibilidad del lenguaje tenemos otras maneras de crear una 2da instancia del 
+    Singleton, por ejemplo, pero esto va de la mano de la flexibilidad que tenemos con el lenguaje,
+    él nos da la potestad de hacer lo que queramos.
+
+    ¿Cómo se puede hacer overuse?
+
+    El Singleton tiene cierto parecido con una variable global, el problema es que si creamos mal 
+    este Singleton y muchos objetos dependen de él, vamos a crear un gran acoplamiento entre ellos.
+
+    Debemos enfocarnos en la preguna de cuántas instancias de esta clase voy a necesitar, para 
+    saber si realmente debemos crear un Singleton o no.
+
+    ¿Qué tantas dependencias estamos creando con los Singleton a la hora de usarlos?
+
+    Usar este patrón nos trae un problema también y es a la hora del testing, ya que se podría 
+    modificar el comportamiento del Singleton en tiempo de ejecución de los tests y todos deberían
+    partir del mismo punto. Una forma de solucionar esto es usar en testing una clase que tenga el 
+    mismo comportamiento del Singleton, pero sin ser Singleton.
+
+    ¿Dónde podemos encontrar este patrón?
+
+    En la clase Inflections de ActiveSupport, que tiene una sola instancia para las reglas de 
+    pluralización y singularización de los textos.
+
