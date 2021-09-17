@@ -378,7 +378,7 @@ Design Patterns in Ruby:
 
     class_methods.
 
-    Para evitar que realicen otra instancia de nuestro Singleto, podemos hacer que el método new de 
+    Para evitar que realicen otra instancia de nuestro Singleton, podemos hacer que el método new de 
     la clase sea private: private_class_method :new.
 
     El lenguaje ya tiene una manera de convertir a una clase en Singleton, así nos ahorramos tener 
@@ -421,3 +421,40 @@ Design Patterns in Ruby:
     En la clase Inflections de ActiveSupport, que tiene una sola instancia para las reglas de 
     pluralización y singularización de los textos.
 
+  Chapter 13 - Picking the Right Class with a Factory:
+    Este patrón está enfocado para solucionar el problema de cómo debesmos elegir las clases 
+    correctas de acuerdo a nuestras circunstancias.
+
+    Este patrón está confirmado por clases Creators y clases Products, que en el ejemplo del 
+    estanque, sería el estanque el Creator y los animales los Products.
+
+    Es como aplicar el Template Method pero a creación de objetos, como en el ejemplo, donde 
+    tenemos una clase que se encarga de crear un estanque de ranas y otra un estanque de patos.
+
+    Este patrón se basa en dejar que una subclase responda la pregunta de: ¿Qué clase debería 
+    encargarse de esto?
+
+    Un problema de este patrón es que la cantidad de clases que tenemos que mantener va a ir
+    incrementando de manera exponencial mientras entran más entidades en juego, una solución para 
+    esto, sería hacer una inyección de dependencias y que nuestra clase de estanque reciba la 
+    cantidad de patos y de plantas que desea crear.
+
+    Pero tenemos otro problema más, podemos crear objetos que no tengan nada que ver para ese 
+    estanque, podríamos tener un tigre con árboles de pantano, estos son 2 entidades que no son 
+    compatibles, así que debemos definir esta compatibilidad en algún lugar. Ahí es donde entra el
+    Abstract Factory
+
+    ¿Cómo podemos hacer overuse?
+
+    Usar este patrón cuando realmente no es necesario, debemos tener en cuenta que solamente le 
+    vamos a sacar todo el provecho cuando tenemos muchas clases relacionadas y debemos seleccionar
+    algunas de ellas. 
+    
+    YAGNI, puede que toda esta arquitectura de Factories que estamos pensando no nos sea útil en el
+    futuro.
+
+    ¿Dónde podemos encontrar este patrón?
+
+    ActiveRecord y su connection con los distintos motores de DB, recibe un String indicando con 
+    qué motor de DB nos vamos a conectar y de acuerdo a esto, tiene métodos que ya se encargan de 
+    la conexión.
