@@ -442,13 +442,13 @@ Design Patterns in Ruby:
     Pero tenemos otro problema más, podemos crear objetos que no tengan nada que ver para ese 
     estanque, podríamos tener un tigre con árboles de pantano, estos son 2 entidades que no son 
     compatibles, así que debemos definir esta compatibilidad en algún lugar. Ahí es donde entra el
-    Abstract Factory
+    Abstract Factory.
 
     ¿Cómo podemos hacer overuse?
 
     Usar este patrón cuando realmente no es necesario, debemos tener en cuenta que solamente le 
     vamos a sacar todo el provecho cuando tenemos muchas clases relacionadas y debemos seleccionar
-    algunas de ellas. 
+    algunas de ellas.
     
     YAGNI, puede que toda esta arquitectura de Factories que estamos pensando no nos sea útil en el
     futuro.
@@ -458,3 +458,60 @@ Design Patterns in Ruby:
     ActiveRecord y su connection con los distintos motores de DB, recibe un String indicando con 
     qué motor de DB nos vamos a conectar y de acuerdo a esto, tiene métodos que ya se encargan de 
     la conexión.
+
+    Separa el código de creación de los productos (con todo lo que esto conlleva) con el código que
+    lo va a utilizar
+    
+    Continuamos con el builder, que está más enfocado en construir objetos que tienen un 
+    comportamiento complicado.
+
+
+    Pros 
+
+    Evitas un acoplamiento fuerte entre el creador y los productos concretos.
+
+    Principio de responsabilidad única. Puedes mover el código de creación de producto a un 
+    lugar del programa, haciendo que el código sea más fácil de mantener.
+
+    Principio de abierto/cerrado. Puedes incorporar nuevos tipos de productos en el programa sin 
+    descomponer el código cliente existente
+
+  Chapter 14 - Easier Object Construction with the Builder:
+    Es un patrón creacional enfocado a esa parte de configuración y de armado de los objetos que 
+    puede volverse bastante complicada. Está enfocado en ensamblar objetos.
+
+    En este patrón se ven envueltos: 1. El Director, que es el cliente que va dando los valores de
+    ensamble del builder. 2. El objeto que está siendo construido, que es el Product
+ 
+    Este patrón también puede verse como el Factory porque podemos tener varios builders para 
+    construir distintos objetos e incluso variaciones de uno de estos.
+
+    Este patrón también nos permite asegurarnos que los objetos son construidos de cierta manera y
+    que cumplen con x características que queramos, así que es una forma más segura de ensamblar 
+    ese objeto que queremos.
+
+    Magic methods, son  métodos que nos permiten hacer el ensamblaje del builder de una manera más
+    elegante e incluso ahorrarnos llamado de métodos, setteo de attributes, etc. El único tradeoff
+    de usar estos magic methods es que están hechos a partir de metaprogramming y el 
+    method_missing. RoR los usa con Rails, ¿cómo lo hace?. e.g: builder.add_cd_and_dvd_and_wifi
+
+    Otra cosa que debemos tener en cuenta con este patrón es si queremos una instancia de builder 
+    que nos cree todos los objetos que deseemos, que tengamos que llamar a un método de "reset" o
+    que sólo esté relacionado con un objeto.
+
+    ¿Cómo podemos hacer overuse?
+
+    Cuando hacemos uso de este patrón pero realmente no lo necesitamos. e.g: si tenemos un objeto
+    que tiene 2 attributes y su creación no tiene complejidad, ¿para qué vamos a crear un Builder?
+    Una pista de que deberíamos usar este patrón es que tenemos lógica de creación de un objeto
+    repetida en varios sitios de la aplicación. Otro sería, que nos encontramos con que la creación
+    de objetos se está volviendo muy compleja y creamos objetos inválidos.
+
+    ¿Dónde podemos encontrar este patrón?
+
+    En la libreria MailFactory, en la cual se implementa un builder para construir emails de una 
+    manera más amigable.
+
+    Los magic methods podemos verlos muy bien ejemplificados en los finder methods de ActiveRecord.
+    e.g: HotelReservation.find_by_user_id_and_id(1, 45)
+
