@@ -515,3 +515,38 @@ Design Patterns in Ruby:
     Los magic methods podemos verlos muy bien ejemplificados en los finder methods de ActiveRecord.
     e.g: HotelReservation.find_by_user_id_and_id(1, 45)
 
+  Chapter 15 - Assembling your system with the Interpreter:
+    Muchas veces la mejor manera de solucionar algo es usar una herramienta enfocada a ese 
+    problema, es en este caso donde podemos usar este patrón Interpreter. El caso que nos plantea 
+    el libro es de una aplicación de Geolocalización que estaba escrita en C, este no es el mejor 
+    lenguaje para esto, así que movieron parte de la funcionalidad a un lenguaje especializado y 
+    la aplicación de C se comunica con la otra sección.
+
+    Nos dan la flexibilidad de usar otro lenguaje pero esto con el costo de la complejidad que 
+    lleva implementar este patrón y que además no es tan bueno en performance.
+
+    Para hacer que los 2 lenguajes se puedan comunicar creamos algo que es llamado un AST (abstract
+    syntax tree), que funcionaría como una sentencia. Las partes más bajas de este árbol se llaman 
+    Terminals y representan las cosas más básicas del lenguaje; las partes no tan bajas se llaman 
+    Nonterminals y representan los conceptos de más alto rango del lenguaje.
+
+    Este patrón no es tan óptimo por su naturaleza de los AST y el procesamiento que estos llevan
+    consigo.
+
+    Necesitamos un parser para que mapee los tokens que nos llegan a nuestro AST.
+
+    Podemos usar lenguajes como XML o YAML de parsers en caso de que nuestra necesidad así nos lo
+    permita; aunque, estos son buenos representando información pero no tanto programas.
+
+    ¿Cómo podemos hacer overuse?
+
+    El problema de este patrón es todo lo contrario y que se tiende a usar bastante poco, ya que se
+    sale del marco de experticie de la mayoría de desarrolladores.
+
+    ¿Dónde podemos encontrar este patrón?
+
+    En el propio lenguaje de programación, Ruby es un lenguaje interpretado, esto quiere decir que 
+    todas las sentencias que escribimos en este lenguaje son tokenizadas y luego parseadas en C.
+
+
+  
