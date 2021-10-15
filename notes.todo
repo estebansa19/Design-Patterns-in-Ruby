@@ -548,5 +548,26 @@ Design Patterns in Ruby:
     En el propio lenguaje de programación, Ruby es un lenguaje interpretado, esto quiere decir que 
     todas las sentencias que escribimos en este lenguaje son tokenizadas y luego parseadas en C.
 
+  Chapter 16 - Opening Up Your System with Domain-Specific Languages:
+    Este patrón se enfoca en darle una sintáxis muy amigable al usuario, porque cree que si le 
+    damos al usuario una intefaz fácil de entender, será más fácil de resolver el problema.
 
+    Teóricamente funciona como un Interpreter interno, ya que estamos creando sentencias que van a 
+    ser evaluadas por el propio lenguaje.
+
+    Podemos evaluar estos statements con el eval (no es muy buena práctica).
+
+    ¿Cómo podemos hacer overuse?
+
+    Estos internal DSLs cuenta con las limitaciones del lenguaje, obviamente. También, hay que 
+    tener mucho cuidado con los errores porque podemos generar excepciones muy raras y que no son
+    fácilmente trackeables. Este tipo de patrón también puede tener muchas fallas de seguridad 
+    porque estamos confiando en el input del usuario para usar nuestros statements y lo estamos
+    evaluando con un eval.
+
+    ¿Dónde podemos encontrar este patrón?
+
+    En Rake, Rails y RSPec, en RSpec se ve muy bien ejecutado por toda la sintáxis que tiene y como 
+    esta nos hace cambiar de mindset.
+    
   
