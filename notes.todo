@@ -569,5 +569,27 @@ Design Patterns in Ruby:
 
     En Rake, Rails y RSPec, en RSpec se ve muy bien ejecutado por toda la sintáxis que tiene y como 
     esta nos hace cambiar de mindset.
-    
-  
+
+  Chapter 17 - Creating Custom Objects with Meta-programming:
+    Este patrón busca hacer uso del dinamismo que nos provee el lenguaje para crear los objetos que
+    necesitamos en tiempo de ejecución. Nos hace pensar que podemos manipular los métodos, clases, 
+    etc, como si fueran enteros o strings.
+
+    En este caso se hace uso del patrón Composite para definir un CompositeBase que va a definir 
+    los métodos de manera dinámica con class_eval, se definirán métodos para que la clase pueda 
+    decir si la clase es miembro de un Composite o está definiendo uno de ellos.
+
+    ¿Cómo podemos hacer overuse?
+
+    Debemos tener cuidado con esta técnica y solamente usarla cuando es necesaria de verdad, ya que
+    modificar los objetos en tiempo de ejecución tiene algunos tradeoffs: código menos legible, 
+    código menos comprensible, podemos tener comportamientos que no nos esperábamos.
+
+    ¿Dónde podemos encontrar este patrón?
+
+    attr_accessor, attr_reader, attr_writer, que crean métodos dinámicamente para leer y/o escribir
+    el state de un objeto.
+
+    En las relaciones de ActiveRecord: has_one, has_many, belongs_to.
+
+    Este patrón también es uno de los pilares fundamentales de los DSLs.
