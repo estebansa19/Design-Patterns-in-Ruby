@@ -27,7 +27,7 @@ Design Patterns in Ruby:
         Podemos manejar estos componentes en tiempo de ejecución como sea necesario, i.e: cambiar el
         engine de un vehículo por otro.
 
-      - Delegate, Delegate, Delegate: esto nos permite pasarle la responbilidad sobre un método a
+      - Delegate, Delegate, Delegate: esto nos permite pasarle la responsabilidad sobre un método a
         otro objeto, i.e: si estamos dentro de una clase Car, podemos tener un método que se llame
         start/stop_engine que lo único que haga es llamar start/stop en su engine. Estamos
         redirigiendo la responsabilidad al engine. Esto en conjunto con la composition es algo
@@ -37,7 +37,7 @@ Design Patterns in Ruby:
         que puede tener cierto coste de performance y también, que tenemos que escribir estos métodos
         de delegate start/stop_engine; aunque, Ruby nos ofrece una solución para esta segunda.
 
-      - You Ain’t Gonna Need It (YAGNI): este principio nos habla de no anticiparnos al futuro porque
+      - You Ain't Gonna Need It (YAGNI): este principio nos habla de no anticiparnos al futuro porque
         puede que no sepamos qué es lo que se viene. Entonces, debemos hacer las cosas con las
         necesidades que tenemos en el momento y cuando tengamos que hacer, por ejemplo, un sistema
         más flexible, en su día lo realizaremos, cuando ya tengamos la necesidad.
@@ -59,7 +59,7 @@ Design Patterns in Ruby:
     Duck typing :eyes:.
 
     Debido al que Ruby es un lenguaje dinámico, aquí entra mucho más a colación tener test
-    unitarios, aquí no tenemos un compilador.
+    unitarios, ya que no contamos con un compilador.
 
     initialize method es un hook: a.
 
@@ -373,129 +373,129 @@ Design Patterns in Ruby:
     Es un patrón muy odiado normalmente, MUY.
 
     En sí es una clase que solamente puede tener una instancia y que provee acceso global a esa }
-    instancia. e.g: conexión con una DB, esto debería manejarse una vez por aplicación; una 
+    instancia. e.g: conexión con una DB, esto debería manejarse una vez por aplicación; una
     instancia que maneje los logs de una aplicación.
 
     class_methods.
 
-    Para evitar que realicen otra instancia de nuestro Singleton, podemos hacer que el método new de 
+    Para evitar que realicen otra instancia de nuestro Singleton, podemos hacer que el método new de
     la clase sea private: private_class_method :new.
 
-    El lenguaje ya tiene una manera de convertir a una clase en Singleton, así nos ahorramos tener 
+    El lenguaje ya tiene una manera de convertir a una clase en Singleton, así nos ahorramos tener
     que definir los métodos para acceder a la instancia y también tener que hacer el método new
     private. Simplemente requerimos el método singleton y lo incluímos en la clase.
 
-    Hacerl con el module también nos trae una ventaja y es que la instantiation del Singleton es 
+    Hacerl con el module también nos trae una ventaja y es que la instantiation del Singleton es
     lazy, esto quiere decir que solamente se instancia el Singleton cuando se llama al método de la
-    clase. De la otra manera, creamos la instancia del Singleton sin siquiera necesitarlo, esto es 
+    clase. De la otra manera, creamos la instancia del Singleton sin siquiera necesitarlo, esto es
     conocido como eager instantiation.
 
-    Una alternativa a los singleton podría ser una variable global, pero esta tiene la desventaja 
+    Una alternativa a los singleton podría ser una variable global, pero esta tiene la desventaja
     de que se puede modificar en tiempo de ejecución por otro objeto que no sea el esperado. Otra
-    alternativa sería usar una constante, pero realmente ninguna de estas funciona como un 
-    Singleton, porque no evitan de ninguna manera la 2da instantiation de la clase; además, no 
-    podemos retrasar la instantiation del singleton, porque al evaluarse la variable global o 
+    alternativa sería usar una constante, pero realmente ninguna de estas funciona como un
+    Singleton, porque no evitan de ninguna manera la 2da instantiation de la clase; además, no
+    podemos retrasar la instantiation del singleton, porque al evaluarse la variable global o
     constante, va a ser instanciado al instante.
 
-    Realmente por la flexibilidad del lenguaje tenemos otras maneras de crear una 2da instancia del 
+    Realmente por la flexibilidad del lenguaje tenemos otras maneras de crear una 2da instancia del
     Singleton, por ejemplo, pero esto va de la mano de la flexibilidad que tenemos con el lenguaje,
     él nos da la potestad de hacer lo que queramos.
 
     ¿Cómo se puede hacer overuse?
 
-    El Singleton tiene cierto parecido con una variable global, el problema es que si creamos mal 
+    El Singleton tiene cierto parecido con una variable global, el problema es que si creamos mal
     este Singleton y muchos objetos dependen de él, vamos a crear un gran acoplamiento entre ellos.
 
-    Debemos enfocarnos en la preguna de cuántas instancias de esta clase voy a necesitar, para 
+    Debemos enfocarnos en la preguna de cuántas instancias de esta clase voy a necesitar, para
     saber si realmente debemos crear un Singleton o no.
 
     ¿Qué tantas dependencias estamos creando con los Singleton a la hora de usarlos?
 
-    Usar este patrón nos trae un problema también y es a la hora del testing, ya que se podría 
+    Usar este patrón nos trae un problema también y es a la hora del testing, ya que se podría
     modificar el comportamiento del Singleton en tiempo de ejecución de los tests y todos deberían
-    partir del mismo punto. Una forma de solucionar esto es usar en testing una clase que tenga el 
+    partir del mismo punto. Una forma de solucionar esto es usar en testing una clase que tenga el
     mismo comportamiento del Singleton, pero sin ser Singleton.
 
     ¿Dónde podemos encontrar este patrón?
 
-    En la clase Inflections de ActiveSupport, que tiene una sola instancia para las reglas de 
+    En la clase Inflections de ActiveSupport, que tiene una sola instancia para las reglas de
     pluralización y singularización de los textos.
 
   Chapter 13 - Picking the Right Class with a Factory:
-    Este patrón está enfocado para solucionar el problema de cómo debesmos elegir las clases 
+    Este patrón está enfocado para solucionar el problema de cómo debesmos elegir las clases
     correctas de acuerdo a nuestras circunstancias.
 
-    Este patrón está confirmado por clases Creators y clases Products, que en el ejemplo del 
+    Este patrón está confirmado por clases Creators y clases Products, que en el ejemplo del
     estanque, sería el estanque el Creator y los animales los Products.
 
-    Es como aplicar el Template Method pero a creación de objetos, como en el ejemplo, donde 
+    Es como aplicar el Template Method pero a creación de objetos, como en el ejemplo, donde
     tenemos una clase que se encarga de crear un estanque de ranas y otra un estanque de patos.
 
-    Este patrón se basa en dejar que una subclase responda la pregunta de: ¿Qué clase debería 
+    Este patrón se basa en dejar que una subclase responda la pregunta de: ¿Qué clase debería
     encargarse de esto?
 
     Un problema de este patrón es que la cantidad de clases que tenemos que mantener va a ir
-    incrementando de manera exponencial mientras entran más entidades en juego, una solución para 
-    esto, sería hacer una inyección de dependencias y que nuestra clase de estanque reciba la 
+    incrementando de manera exponencial mientras entran más entidades en juego, una solución para
+    esto, sería hacer una inyección de dependencias y que nuestra clase de estanque reciba la
     cantidad de patos y de plantas que desea crear.
 
-    Pero tenemos otro problema más, podemos crear objetos que no tengan nada que ver para ese 
-    estanque, podríamos tener un tigre con árboles de pantano, estos son 2 entidades que no son 
+    Pero tenemos otro problema más, podemos crear objetos que no tengan nada que ver para ese
+    estanque, podríamos tener un tigre con árboles de pantano, estos son 2 entidades que no son
     compatibles, así que debemos definir esta compatibilidad en algún lugar. Ahí es donde entra el
     Abstract Factory.
 
     ¿Cómo podemos hacer overuse?
 
-    Usar este patrón cuando realmente no es necesario, debemos tener en cuenta que solamente le 
+    Usar este patrón cuando realmente no es necesario, debemos tener en cuenta que solamente le
     vamos a sacar todo el provecho cuando tenemos muchas clases relacionadas y debemos seleccionar
     algunas de ellas.
-    
+
     YAGNI, puede que toda esta arquitectura de Factories que estamos pensando no nos sea útil en el
     futuro.
 
     ¿Dónde podemos encontrar este patrón?
 
-    ActiveRecord y su connection con los distintos motores de DB, recibe un String indicando con 
-    qué motor de DB nos vamos a conectar y de acuerdo a esto, tiene métodos que ya se encargan de 
+    ActiveRecord y su connection con los distintos motores de DB, recibe un String indicando con
+    qué motor de DB nos vamos a conectar y de acuerdo a esto, tiene métodos que ya se encargan de
     la conexión.
 
     Separa el código de creación de los productos (con todo lo que esto conlleva) con el código que
     lo va a utilizar
-    
-    Continuamos con el builder, que está más enfocado en construir objetos que tienen un 
+
+    Continuamos con el builder, que está más enfocado en construir objetos que tienen un
     comportamiento complicado.
 
 
-    Pros 
+    Pros
 
     Evitas un acoplamiento fuerte entre el creador y los productos concretos.
 
-    Principio de responsabilidad única. Puedes mover el código de creación de producto a un 
+    Principio de responsabilidad única. Puedes mover el código de creación de producto a un
     lugar del programa, haciendo que el código sea más fácil de mantener.
 
-    Principio de abierto/cerrado. Puedes incorporar nuevos tipos de productos en el programa sin 
+    Principio de abierto/cerrado. Puedes incorporar nuevos tipos de productos en el programa sin
     descomponer el código cliente existente
 
   Chapter 14 - Easier Object Construction with the Builder:
-    Es un patrón creacional enfocado a esa parte de configuración y de armado de los objetos que 
+    Es un patrón creacional enfocado a esa parte de configuración y de armado de los objetos que
     puede volverse bastante complicada. Está enfocado en ensamblar objetos.
 
     En este patrón se ven envueltos: 1. El Director, que es el cliente que va dando los valores de
     ensamble del builder. 2. El objeto que está siendo construido, que es el Product
- 
-    Este patrón también puede verse como el Factory porque podemos tener varios builders para 
+
+    Este patrón también puede verse como el Factory porque podemos tener varios builders para
     construir distintos objetos e incluso variaciones de uno de estos.
 
     Este patrón también nos permite asegurarnos que los objetos son construidos de cierta manera y
-    que cumplen con x características que queramos, así que es una forma más segura de ensamblar 
+    que cumplen con x características que queramos, así que es una forma más segura de ensamblar
     ese objeto que queremos.
 
     Magic methods, son  métodos que nos permiten hacer el ensamblaje del builder de una manera más
     elegante e incluso ahorrarnos llamado de métodos, setteo de attributes, etc. El único tradeoff
-    de usar estos magic methods es que están hechos a partir de metaprogramming y el 
+    de usar estos magic methods es que están hechos a partir de metaprogramming y el
     method_missing. RoR los usa con Rails, ¿cómo lo hace?. e.g: builder.add_cd_and_dvd_and_wifi
 
-    Otra cosa que debemos tener en cuenta con este patrón es si queremos una instancia de builder 
+    Otra cosa que debemos tener en cuenta con este patrón es si queremos una instancia de builder
     que nos cree todos los objetos que deseemos, que tengamos que llamar a un método de "reset" o
     que sólo esté relacionado con un objeto.
 
@@ -509,25 +509,25 @@ Design Patterns in Ruby:
 
     ¿Dónde podemos encontrar este patrón?
 
-    En la libreria MailFactory, en la cual se implementa un builder para construir emails de una 
+    En la libreria MailFactory, en la cual se implementa un builder para construir emails de una
     manera más amigable.
 
     Los magic methods podemos verlos muy bien ejemplificados en los finder methods de ActiveRecord.
     e.g: HotelReservation.find_by_user_id_and_id(1, 45)
 
   Chapter 15 - Assembling your system with the Interpreter:
-    Muchas veces la mejor manera de solucionar algo es usar una herramienta enfocada a ese 
-    problema, es en este caso donde podemos usar este patrón Interpreter. El caso que nos plantea 
-    el libro es de una aplicación de Geolocalización que estaba escrita en C, este no es el mejor 
-    lenguaje para esto, así que movieron parte de la funcionalidad a un lenguaje especializado y 
+    Muchas veces la mejor manera de solucionar algo es usar una herramienta enfocada a ese
+    problema, es en este caso donde podemos usar este patrón Interpreter. El caso que nos plantea
+    el libro es de una aplicación de Geolocalización que estaba escrita en C, este no es el mejor
+    lenguaje para esto, así que movieron parte de la funcionalidad a un lenguaje especializado y
     la aplicación de C se comunica con la otra sección.
 
-    Nos dan la flexibilidad de usar otro lenguaje pero esto con el costo de la complejidad que 
+    Nos dan la flexibilidad de usar otro lenguaje pero esto con el costo de la complejidad que
     lleva implementar este patrón y que además no es tan bueno en performance.
 
     Para hacer que los 2 lenguajes se puedan comunicar creamos algo que es llamado un AST (abstract
-    syntax tree), que funcionaría como una sentencia. Las partes más bajas de este árbol se llaman 
-    Terminals y representan las cosas más básicas del lenguaje; las partes no tan bajas se llaman 
+    syntax tree), que funcionaría como una sentencia. Las partes más bajas de este árbol se llaman
+    Terminals y representan las cosas más básicas del lenguaje; las partes no tan bajas se llaman
     Nonterminals y representan los conceptos de más alto rango del lenguaje.
 
     Este patrón no es tan óptimo por su naturaleza de los AST y el procesamiento que estos llevan
@@ -545,44 +545,44 @@ Design Patterns in Ruby:
 
     ¿Dónde podemos encontrar este patrón?
 
-    En el propio lenguaje de programación, Ruby es un lenguaje interpretado, esto quiere decir que 
+    En el propio lenguaje de programación, Ruby es un lenguaje interpretado, esto quiere decir que
     todas las sentencias que escribimos en este lenguaje son tokenizadas y luego parseadas en C.
 
   Chapter 16 - Opening Up Your System with Domain-Specific Languages:
-    Este patrón se enfoca en darle una sintáxis muy amigable al usuario, porque cree que si le 
+    Este patrón se enfoca en darle una sintáxis muy amigable al usuario, porque cree que si le
     damos al usuario una intefaz fácil de entender, será más fácil de resolver el problema.
 
-    Teóricamente funciona como un Interpreter interno, ya que estamos creando sentencias que van a 
+    Teóricamente funciona como un Interpreter interno, ya que estamos creando sentencias que van a
     ser evaluadas por el propio lenguaje.
 
     Podemos evaluar estos statements con el eval (no es muy buena práctica).
 
     ¿Cómo podemos hacer overuse?
 
-    Estos internal DSLs cuenta con las limitaciones del lenguaje, obviamente. También, hay que 
+    Estos internal DSLs cuenta con las limitaciones del lenguaje, obviamente. También, hay que
     tener mucho cuidado con los errores porque podemos generar excepciones muy raras y que no son
-    fácilmente trackeables. Este tipo de patrón también puede tener muchas fallas de seguridad 
+    fácilmente trackeables. Este tipo de patrón también puede tener muchas fallas de seguridad
     porque estamos confiando en el input del usuario para usar nuestros statements y lo estamos
     evaluando con un eval.
 
     ¿Dónde podemos encontrar este patrón?
 
-    En Rake, Rails y RSPec, en RSpec se ve muy bien ejecutado por toda la sintáxis que tiene y como 
+    En Rake, Rails y RSPec, en RSpec se ve muy bien ejecutado por toda la sintáxis que tiene y como
     esta nos hace cambiar de mindset.
 
   Chapter 17 - Creating Custom Objects with Meta-programming:
     Este patrón busca hacer uso del dinamismo que nos provee el lenguaje para crear los objetos que
-    necesitamos en tiempo de ejecución. Nos hace pensar que podemos manipular los métodos, clases, 
+    necesitamos en tiempo de ejecución. Nos hace pensar que podemos manipular los métodos, clases,
     etc, como si fueran enteros o strings.
 
-    En este caso se hace uso del patrón Composite para definir un CompositeBase que va a definir 
-    los métodos de manera dinámica con class_eval, se definirán métodos para que la clase pueda 
+    En este caso se hace uso del patrón Composite para definir un CompositeBase que va a definir
+    los métodos de manera dinámica con class_eval, se definirán métodos para que la clase pueda
     decir si la clase es miembro de un Composite o está definiendo uno de ellos.
 
     ¿Cómo podemos hacer overuse?
 
     Debemos tener cuidado con esta técnica y solamente usarla cuando es necesaria de verdad, ya que
-    modificar los objetos en tiempo de ejecución tiene algunos tradeoffs: código menos legible, 
+    modificar los objetos en tiempo de ejecución tiene algunos tradeoffs: código menos legible,
     código menos comprensible, podemos tener comportamientos que no nos esperábamos.
 
     ¿Dónde podemos encontrar este patrón?
