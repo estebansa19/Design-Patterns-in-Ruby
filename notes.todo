@@ -73,7 +73,7 @@ Design Patterns in Ruby:
 
     La idea de este patrón de diseño es tener una familia de objetos que definen lógica o
     **estrategia**. Cada una de estas estrategias deberían ser objetos que puedan ser
-    intercambiables, por ender, estos objetos deberían compartir la misma interfaz.
+    intercambiables, por ende, estos objetos deberían compartir la misma interfaz.
 
     En este patrón tenemos que tener claro qué Strategy usar porque cada uno podría tener outputs
     totalmente distintos.
