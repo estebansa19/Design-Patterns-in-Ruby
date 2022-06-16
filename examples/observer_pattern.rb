@@ -13,3 +13,45 @@ como suscriptores. Lo que nos sugiere este patrón es que añadamos un mecanismo
 clase notificadora para que los objetos individuales (suscriptores) puedan suscribirse o cancelar su
 suscripción a un flujo de eventos que proviene de esta clase notificadora.
 =end
+
+class Suscriber
+  attr_reader :name
+
+  def initialize(name)
+    @name = name
+  end
+
+  def update(context)
+    puts "Hi #{name}, the  new #{context.new_product} has arrived!"
+  end
+end
+
+class Store
+  attr_reader :suscribers, :new_product
+
+  def initialize
+    @suscribers = []
+  end
+
+  def set_new_product(new_product)
+    @new_product = new_product
+  end
+
+  def add_suscriber(suscriber)
+    suscribers << suscriber
+  end
+
+  def remove_suscriber(suscriber)
+    suscribers.delete(suscriber)
+  end
+
+  def notify_suscribers
+    suscribers.each { |suscriber| suscriber.update(self) }
+  end
+end
+
+suscribers = [Suscriber.new('Esteban'), Suscriber.new('Carlos'), Suscriber.new('Ana')]
+apple_store = Store.new
+suscribers.each { |suscriber| apple_store.add_suscriber(suscriber) }
+apple_store.set_new_product('iPhone 14')
+apple_store.notify_suscribers

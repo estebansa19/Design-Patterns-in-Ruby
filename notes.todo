@@ -422,7 +422,7 @@ Design Patterns in Ruby:
     pluralización y singularización de los textos.
 
   Chapter 13 - Picking the Right Class with a Factory:
-    Este patrón está enfocado para solucionar el problema de cómo debesmos elegir las clases
+    Este patrón está enfocado para solucionar el problema de cómo debemos elegir las clases
     correctas de acuerdo a nuestras circunstancias.
 
     Este patrón está confirmado por clases Creators y clases Products, que en el ejemplo del
