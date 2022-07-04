@@ -369,7 +369,7 @@ Design Patterns in Ruby:
     un objeto entre los jugadores de sus equipos, los decorators hacen algo parecido. Van delegando
     la responsabilidad y además de esto, añaden su comportamiento especial.
 
-  Chapter 12 - Making sure there's only one with the singleton:
+  Chapter 12 - Making sure there's only one with the Singleton:
     Es un patrón muy odiado normalmente, MUY.
 
     En sí es una clase que solamente puede tener una instancia y que provee acceso global a esa }
