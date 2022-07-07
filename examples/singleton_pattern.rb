@@ -11,7 +11,8 @@ Solución: este patrón nos sugiere tener una clase la cual modofiquemos el mét
 para que solamente pueda tener una sola instancia.
 =end
 
-class Singleton
+# Manual Singleton
+class Klass1
   @instance = new
 
   private_class_method :new
@@ -25,5 +26,19 @@ class Singleton
   end
 end
 
-Singleton.instance.greet
-Singleton.instance.greet
+Klass1.instance.greet
+Klass1.instance.greet
+
+# Singleton with Ruby module implementation
+require 'singleton'
+
+class Klass2
+  include Singleton
+
+  def greet
+    puts "Hi, I'm #{object_id}"
+  end
+end
+
+Klass2.instance.greet
+Klass2.instance.greet
